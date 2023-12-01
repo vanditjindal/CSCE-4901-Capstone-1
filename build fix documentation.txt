@@ -1,0 +1,34 @@
+Remove Package Lock Files:
+
+Identified that the project had both yarn.lock and package-lock.json files.
+Decided to stick with Yarn as the preferred package manager.
+Removed package-lock.json using the command:
+
+rm package-lock.json
+rm yarn.lock
+
+Regenerate Yarn Lock File:
+
+Ran the following command to regenerate the yarn.lock file:
+
+yarn install
+npm install
+
+
+Upgrade Expo CLI:
+Upgraded Expo CLI to the latest version using:
+
+npm install -g expo-cli
+
+Verify Expo CLI Installation:
+Checked the Expo CLI version to confirm the upgrade:
+
+expo --version
+
+Update Expo Project:
+Navigated to the Expo project directory and ran:
+
+expo upgrade
+
+This updated the Expo project configuration and dependencies.
+Check Node Version:
