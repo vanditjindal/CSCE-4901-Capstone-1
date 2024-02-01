@@ -78,15 +78,26 @@ export default function MainContainer(){
             tabBarIcon: ({ focused}) => {
               let outlined;
               let rn = route.name;
-  
-              if (rn === homeName) {
-                outlined = focused ? '#ff0000' : '#808080';
-                return (
-                    <View>
-                        <Entypo name="home" size={40} color={outlined} backgroundColor={"#ffffff"} />
-                        <Text style={{color:outlined, fontSize:20,position:'relative',left:-5,bottom:-3,textAlign:'center'}}>Home</Text>
-                    </View>
-                )
+      
+      if (rn === homeName) {
+        outlined = focused ? '#ff0000' : '#808080';
+        return (
+          <View style={{ alignItems: 'center' }}>
+            <View
+              style={{
+                backgroundColor: themeMode === true ? '#1a1a1a' : '#FFFFFF',
+                borderRadius: 25,
+                width: 50,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Entypo name="home" size={40} color={outlined} style={{ backgroundColor: 'transparent' }} />
+            </View>
+            <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -5, bottom: -3, textAlign: 'center' }}>Home</Text>
+          </View>
+        );
                 
               } else if (rn === cameraName) {
                 outlined = focused ? '#ff0000' : '#808080';
