@@ -115,7 +115,7 @@ export default function MainContainer(){
                   >
                     <EvilIcons name="camera" size={50} color={outlined} style={{ backgroundColor: 'transparent' }} />
                   </View>
-                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -10, bottom: -3, textAlign: 'center' }}>Identify</Text>
+                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -10, bottom: -3, textAlign: 'center' }}>Camera</Text>
                 </View>
                 )
   
