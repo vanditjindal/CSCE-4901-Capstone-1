@@ -24,11 +24,30 @@ function SettingsModal() {
 // source= theme.theme == "dark" ? require('../assets/information.png') : require('../assets/lightInfo.png')
   return (
     <View style={{top:40, backgroundColor: theme.background}}>
-      <TouchableOpacity onPress={toggleModal} style={{...styles.InformationStyle, backgroundColor: theme.background}} >
-      <Feather style={{ marginTop: -50, position:'relative', marginLeft: -330, width: 50, height: 50, color: theme.theme == "light" ? "#000000" : "white"  }} name="settings" size={35} backgroundColor={"#ffffff"} 
-      
-      />
-      </TouchableOpacity>
+      <TouchableOpacity
+    onPress={toggleModal}
+    style={{
+      ...styles.InformationStyle,
+      backgroundColor: theme.theme === 'dark' ? '#000000' : theme.background, // Set background color based on theme
+    }}
+  >
+    <Feather
+      style={{
+        marginTop: -50,
+        position: 'relative',
+        marginLeft: -330,
+        width: 50,
+        height: 50,
+        color: theme.theme === 'light' ? '#000000' : 'white',
+        backgroundColor: theme.theme === 'dark' ? '#000000' : theme.background, // Set background color based on theme
+        borderRadius: 25, // Optional: Add rounded corners to create a circular background
+        alignItems: 'center', // Center the icon horizontally
+        justifyContent: 'center', // Center the icon vertically
+      }}
+      name="settings"
+      size={35}
+    />
+  </TouchableOpacity>
   
       <Modal 
         isVisible={isModalVisible}
