@@ -132,10 +132,21 @@ export default function MainContainer(){
               else if (rn === locateName) {
                 outlined = focused ? '#ff0000' : '#808080';
                 return (
-                    <View>
-                        <IonIcon name="locate" size={45} color={outlined} backgroundColor={"#ffffff"} />
-                        <Text style={{color:outlined, fontSize:20,position:'relative',left:-5,bottom:-3,textAlign:'center'}}>Locate</Text>
-                    </View>
+                  <View style={{ alignItems: 'center' }}>
+                  <View
+                    style={{
+                      backgroundColor: themeMode === true ? '#1a1a1a' : '#FFFFFF',
+                      borderRadius: 25,
+                      width: 50,
+                      height: 50,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <IonIcon name="locate" size={45} color={outlined} style={{ backgroundColor: 'transparent' }} />
+                  </View>
+                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -5, bottom: -3, textAlign: 'center' }}>Identify</Text>
+                </View>
                 )
               } 
             },
