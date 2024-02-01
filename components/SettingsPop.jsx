@@ -25,7 +25,7 @@ function SettingsModal() {
   return (
     <View style={{top:40, backgroundColor: theme.background}}>
       <TouchableOpacity onPress={toggleModal} style={{...styles.InformationStyle, backgroundColor: theme.background}} >
-      <Feather style={{ marginTop: -50, position:'relative', marginLeft: -360, width: 50, height: 50, color: theme.theme == "light" ? "#000000" : "white"  }} name="settings" size={35} backgroundColor={"#ffffff"} 
+      <Feather style={{ marginTop: -50, position:'relative', marginLeft: -330, width: 50, height: 50, color: theme.theme == "light" ? "#000000" : "white"  }} name="settings" size={35} backgroundColor={"#ffffff"} 
       
       />
       </TouchableOpacity>
