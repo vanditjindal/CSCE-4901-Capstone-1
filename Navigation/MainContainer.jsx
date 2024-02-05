@@ -20,8 +20,7 @@ import tts from '../config/tts';
 //Screens
 import HomeScreen from './Screens/HomeScreen'
 import CameraScreen from './Screens/CameraScreen'
-import LocateScreen from './Screens/LocateScreen'
-import SettingsScreen from './Screens/SettingsScreen'
+import LocateScreen from './Screens/LocateScreen';
 import LegoPartScreen from './Screens/LegoPartScreen';
 import { useState, useContext } from 'react';
 import { useEffect } from 'react';
@@ -129,7 +128,6 @@ export default function MainContainer(){
           <Tab.Screen options={{ headerShown: false}}name={homeName} component={HomeScreen} />
           <Tab.Screen options={{headerShown: false, unmountOnBlur: true,}} name={cameraName} component={CameraScreen} />
           <Tab.Screen options={{headerShown: false, unmountOnBlur: true,}} name={locateName} component={LocateScreen} />
-          <Tab.Screen options={{headerShown: false}} name={settingsName} component={SettingsScreen} />
           <Tab.Screen options={{ headerShown: false}} name={legoPartsName} component={LegoPartScreen} />
 
         </Tab.Navigator>

@@ -49,6 +49,8 @@ function HomeScreen({navigation}){
     
     {/* <Text style={{fontSize:20,position:'absolute',left:-5,bottom:-3,textAlign:'center'}}>Menu</Text> */}
     
+    {/* These two modals will load the top bar which has the settings icon and the information icon which will load their respective screens. The screens are in components/... */}
+    
     <InformationModal></InformationModal>
     <SettingsModal></SettingsModal>
      
