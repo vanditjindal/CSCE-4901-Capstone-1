@@ -7,10 +7,14 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';// Icon from https:/
 import Entypo from 'react-native-vector-icons/Entypo'; //Icon from https://github.com/oblador/react-native-vector-icons
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import { EventRegister } from 'react-native-event-listeners';
+
+//Import theme style, light/dark
 import themeContext from '../config/themeContext';
 import theme from '../config/theme';
 
+//Import text to speech contexts
 import ttsContext from "../config/ttsContext";
+//imports text to speech choice. true/false
 import tts from '../config/tts';
 
 //Screens
@@ -54,13 +58,14 @@ export default function MainContainer(){
       };
     });
 
-  
+    
 
     return(
 
         <ttsContext.Provider value = {ttsMode === true ? tts.true : tts.false}>
         <themeContext.Provider value = {themeMode === true ? theme.dark : theme.light}>
         <NavigationContainer >
+          {/* This is the bottom navigator for the app. It initially starts at the home page, then navigates depending on what the user presses*/}
         <Tab.Navigator 
           initialRouteName={homeName}
           screenOptions={({ route }) => ({
@@ -75,10 +80,11 @@ export default function MainContainer(){
 
             tabBarShowLabel: false,
             tabBarStyle: { height: 130, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
-            tabBarIcon: ({ focused}) => {
+            tabBarIcon: ({ focused }) => {
               let outlined;
               let rn = route.name;
-  
+              
+              {/*This will determine which screen is selected and apply the styles to the outlines and the text accordingly. */}
               if (rn === homeName) {
                 outlined = focused ? '#ff0000' : '#808080';
                 return (
@@ -102,7 +108,7 @@ export default function MainContainer(){
                 outlined = focused ? '#ff0000' : '#808080';
                 return (
                     <View>
-                        <Feather style={{ marginBottom: 0 }} name="menu" size={40} color={outlined} backgroundColor={"#ffffff"} />
+                        <Feather style={{ marginBottom: 0 }} name="menu" size={50} color={outlined} backgroundColor={"#ffffff"} />
                         <Text style={{color:outlined, fontSize:20,position:'relative',left:-5,bottom:-3,textAlign:'center'}}>Menu</Text>
                     </View>
                 )

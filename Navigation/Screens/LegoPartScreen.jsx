@@ -7,7 +7,10 @@ import { Divider} from 'react-native-paper';
 import themeContext from '../../config/themeContext';
 import * as Speech from 'expo-speech';
 import ttsContext from '../../config/ttsContext';
+
+
 function LegoPartScreen({ route, navigation}){
+
     //params passed from homepage
     const partId = route.params.item.PartID;
     const legoName = route.params.item.PartName;
@@ -15,15 +18,17 @@ function LegoPartScreen({ route, navigation}){
     const legoColor = route.params.item.Colour;
     const legoQuantity = route.params.item.Quantity;
     const imageURL = route.params.item.ImageURL;
+    
     // const legoSetCount = route.params.item.SetCount;
     const legoCategory = route.params.item.Category;
    
     //variable to toggle full screen image
     const [showModal, setShowModal] = useState(false)
 
-    // theme
+    // theme and texct to speech contextx loaded
     const theme = useContext(themeContext);
     const tts = useContext(ttsContext);
+
     //Text-to-Speech Functions
     const speakLegoNameAndID = () => {
         const textToSay = 'LEGO piece' + legoName + ',' + 'LEGO ID' + partId;
@@ -55,6 +60,7 @@ function LegoPartScreen({ route, navigation}){
             Speech.speak(textToSay);
         }
     };
+
     //page html
     return(
 
