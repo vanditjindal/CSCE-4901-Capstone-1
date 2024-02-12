@@ -43,7 +43,7 @@ function HomeScreen({navigation}){
     return partName+partID+color;
   });
 
- return(
+  return(
     <View style={{backgroundColor: theme.background}}>
     
     

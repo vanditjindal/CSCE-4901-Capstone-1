@@ -156,8 +156,10 @@ const styles = StyleSheet.create({
         left: "5%",
         width: '90%',
         height: '75%',
-        resizeMode: 'contain',
-        objectfit: "contain"
+        resizeMode: 'contain'
+        //////
+        //Removed the objectfit as it was giving an error as a not valid key for prop style
+        //objectfit: "contain"
     },
     title:{
         position: "relative",
