@@ -46,7 +46,7 @@ function CameraScreen({navigation}){
     width: 1600,
   };
 
-  //camera permissions
+  //camera permissions and Media Library Permission 
   const [hasCameraPermission, setHasCameraPermission] = useState();
   const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
 
