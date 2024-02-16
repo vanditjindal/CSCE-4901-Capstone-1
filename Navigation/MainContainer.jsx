@@ -74,7 +74,7 @@ export default function MainContainer(){
               : undefined,
 
             tabBarShowLabel: false,
-            tabBarStyle: { height: 130, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
+            tabBarStyle: { height: 120, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
             tabBarIcon: ({ focused}) => {
               let outlined;
               let rn = route.name;
@@ -93,9 +93,9 @@ export default function MainContainer(){
                 justifyContent: 'center',
               }}
             >
-              <Entypo name="home" size={40} color={outlined} style={{ backgroundColor: 'transparent' }} />
+              <Entypo name="home" size={38} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: 1, marginBottom: -8 }} />
             </View>
-            <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -5, bottom: -3, textAlign: 'center' }}>Home</Text>
+            <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Home</Text>
           </View>
         );
                 
@@ -113,9 +113,9 @@ export default function MainContainer(){
                       justifyContent: 'center',
                     }}
                   >
-                    <EvilIcons name="camera" size={50} color={outlined} style={{ backgroundColor: 'transparent' }} />
+                    <EvilIcons name="camera" size={50} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: 1, marginBottom: -8 }} />
                   </View>
-                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -10, bottom: -3, textAlign: 'center' }}>Camera</Text>
+                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Camera</Text>
                 </View>
                 )
   
@@ -143,7 +143,7 @@ export default function MainContainer(){
                       justifyContent: 'center',
                     }}
                   >
-                    <IonIcon name="locate" size={45} color={outlined} style={{ backgroundColor: 'transparent' }} />
+                    <IonIcon name="locate" size={45} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: -7, marginBottom: -8 }} />
                   </View>
                   <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -5, bottom: -3, textAlign: 'center' }}>Identify</Text>
                 </View>
