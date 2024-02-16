@@ -55,14 +55,12 @@ function SettingsModal() {
       >
         <View style={{...styles.ModalStyle, backgroundColor: theme.background}}>
 
-        <Text style={{marginTop:30, marginLeft:30,fontSize:32, fontWeight:'bold', color: theme.color}}>Settings</Text>
-        <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:50}}>
+        <Text style={{marginTop:35, marginLeft:30,fontSize:28, fontWeight:'bold', color: theme.color}}>Settings</Text>
+        <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:30}}>
             <Switch style={{flexDirection:'row', alignItems:'center',marginLeft:0,marginTop:-20}} value={themeMode} onValueChange={(value) => {
               
               setThemeMode(value);
               EventRegister.emit("changeTheme", value);
-              
-              
               }} onPress={() => setThemeMode(!themeMode)}
             />
             
@@ -73,8 +71,8 @@ function SettingsModal() {
             <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:10}}>
             </View>
 
-            <Text style={{marginTop:20, marginLeft:30,fontSize:32, fontWeight:'bold', color: theme.color}}>Accessibility Settings</Text>
-            <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:30}}>
+            <Text style={{marginTop:20, marginLeft:30,fontSize:28, fontWeight:'bold', color: theme.color}}>Accessibility Settings</Text>
+            <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:15, marginBottom:-15}}>
             <Switch value={ttsMode} onValueChange={(value) => {
               
               setTtsMode(value);
@@ -131,7 +129,7 @@ const styles = StyleSheet.create({
     flex:1, 
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
-    maxHeight: 400
+    maxHeight: 330
   },
 
   ExitButton: {
