@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, TouchableWithoutFeedback, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ScrollView,  Image, TouchableWithoutFeedback, Pressable, Touchable, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SearchBar, ListItem, Avatar } from "@rneui/themed";
 import { Divider } from "@react-native-material/core";
@@ -10,8 +10,7 @@ import themeContext from '../../config/themeContext';
 import Feather from 'react-native-vector-icons/Feather'; // Icon from https://github.com/oblador/react-native-vector-icons
 
 
-
-function HomeScreen({navigation}){
+function HomeScreen({route, navigation}){
   // theme
   const theme = useContext(themeContext);
 
@@ -62,7 +61,15 @@ function HomeScreen({navigation}){
       
       {results.map(item => (
           <ListItem key = {item.PartID} onPress={() => navigation.navigate('Lego',{ item:item})} containerStyle={{backgroundColor: theme.theme == "dark" ? "#000000" : theme.background}} bottomDivider>
-          <Avatar size={70} source={{ uri: item.ImageURL }} />
+          
+          <View style={styles.partContainer}>            
+          <Image
+            style={[styles.image, { width: 70, height: 70, borderRadius: 5 }]} 
+            source={{ uri: item.ImageURL }}
+          /> 
+        </View>
+
+
           <ListItem.Content>
             <ListItem.Title style={{color: theme.color}}>{item.PartName}</ListItem.Title>
             <ListItem.Subtitle style={{color: theme.color}}>{'Category: ' + item.Category}</ListItem.Subtitle>
