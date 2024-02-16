@@ -54,10 +54,10 @@ function HomeScreen({navigation}){
      
       <ScrollView style={{position:'relative', marginBottom:90, backgroundColor: theme.background}}>
 
-      <Text style={{...styles.text, left:20,fontWeight:'bold', fontSize:30, color: theme.color}}>Lego Pieces</Text>
-      <Text style={{...styles.text, color: theme.color}}>Please select the piece you would like to identify</Text>
-      <SearchBar onChangeText={updateSearch} value={searchTerm} placeholder="Search" platform="ios" containerStyle={{position:'relative',margin:16, backgroundColor: theme.background}}/>
-      <Divider style={{ marginTop: 10,marginLeft:20,marginRight:20,}}/>
+      <Text style={{...styles.text, left:20, marginBottom: 13, fontWeight:'bold', fontSize:30, color: theme.color}}>Lego Pieces</Text>
+      <Text style={{...styles.text, marginBottom: -5, color: theme.color}}>Please select the piece you would like to identify</Text>
+      <SearchBar onChangeText={updateSearch} value={searchTerm} placeholder="Search" platform="ios" containerStyle={{position:'relative',margin:16, marginBottom: 10, backgroundColor: theme.background}}/>
+      <Divider style={{marginTop: 10,marginLeft:20,marginRight:20,}}/>
       {/* iterate over the json file and print one by one */}
       
       {results.map(item => (
