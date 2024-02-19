@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Image,View,StyleSheet,Dimensions,Pressable,Modal,Text,ActivityIndicator, TouchableWithoutFeedback,} from 'react-native';
+import { Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import { startPrediction } from '../../helpers/tensor-helper';
 import {Camera} from 'expo-camera';
@@ -9,6 +11,7 @@ import { bundleResourceIO } from '@tensorflow/tfjs-react-native';
 import { Switch } from "@react-native-material/core";
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as Speech from 'expo-speech';
+import * as Permissions from 'expo-permissions';
 
 
 
@@ -108,6 +111,30 @@ function CameraScreen({navigation}){
       })();
   }, []);
 
+  const handleImageImport = async () => {
+    try {
+      const { status } = await MediaLibrary.getPermissionsAsync();
+  
+      if (status !== 'granted') {
+        console.log('Permission denied');
+        return;
+      }
+  
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.canceled) {
+        console.log(result.uri);
+        // Process the selected image
+      }
+    } catch (error) {
+      console.error('Error selecting image:', error);
+    }
+  };
 
   if (hasCameraPermission === undefined) {
     return <Text>Requesting permissions...</Text>
@@ -203,7 +230,6 @@ function CameraScreen({navigation}){
     }
     loop();
   }
-
 
   //when user clicks capture image button, this function fires using the tensor state frm previous function and predicting based on that
   const handleImageCapture = async () => {
@@ -365,7 +391,19 @@ function CameraScreen({navigation}){
           // <ActivityIndicator animating= {loading} hidesWhenStopped = {!loading} style={{backgroundColor: "transparent"}} key= {3} size="large" />
         ]
       }
-      
+      {/* Image import button */}
+      <Pressable
+        onPress={handleImageImport}
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? 'grey'
+              : 'white'
+          },
+          styles.importButton
+        ]}>
+        <Text style={styles.buttonText}>Import Image</Text>
+      </Pressable>
       
     </View>
   );
