@@ -232,6 +232,7 @@ function CameraScreen({navigation}){
       }
         
     }
+    
     catch (e){
       console.log(e)
       

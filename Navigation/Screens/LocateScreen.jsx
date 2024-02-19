@@ -244,24 +244,24 @@ function LocateScreen({route,navigation}){
     {legoLocations.map((prediction, index) => (
       [
       <View  key = {index} onStartShouldSetResponder={() => { {
-        for (var i = 0; i < legos.length; i++){
-          if (legos[i].PartID === prediction.class){
-            setLegoPrediction([legos[i], prediction.confidence.toFixed(2) * 100 ])
-          };
-        }
-        setShowPrediction(true);
-      } }} style={[styles.box, {
-        width:  (Dimensions.get('window').width/400) * prediction.width, 
-        height: ((Dimensions.get('window').height-130)/512)* prediction.height,
-        top: ((prediction.y/512) * (Dimensions.get('window').height-130)) - (((Dimensions.get('window').height-130)/512)* prediction.height/2), 
-        left: ((prediction.x / 400) * Dimensions.get('window').width) -  ((Dimensions.get('window').width/400) * prediction.width/2),
-        // left:  prediction.x
-        // width: 428, 400, 415
-        // height: 796, 512, 605  
-        // left: ,
-        // right:  
-        }]}
-        >
+          for (var i = 0; i < legos.length; i++){
+            if (legos[i].PartID === prediction.class){
+              setLegoPrediction([legos[i], prediction.confidence.toFixed(2) * 100 ])
+            };
+          }
+          setShowPrediction(true);
+        } }} style={[styles.box, {
+          width:  (Dimensions.get('window').width/400) * prediction.width, 
+          height: ((Dimensions.get('window').height-130)/512)* prediction.height,
+          top: ((prediction.y/512) * (Dimensions.get('window').height-130)) - (((Dimensions.get('window').height-130)/512)* prediction.height/2), 
+          left: ((prediction.x / 400) * Dimensions.get('window').width) -  ((Dimensions.get('window').width/400) * prediction.width/2),
+          // left:  prediction.x
+          // width: 428, 400, 415
+          // height: 796, 512, 605  
+          // left: ,
+          // right:  
+          }]}
+      >
           
           <Text style ={styles.predictionClass}>{prediction.class} ({prediction.confidence.toFixed(2) * 100}%)</Text>
         </View>,
