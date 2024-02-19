@@ -68,14 +68,11 @@ export default function MainContainer(){
         <Tab.Navigator 
           initialRouteName={homeName}
           screenOptions={({ route }) => ({
+            
             tabBarButton: [
               legoPartsName,
               settingsName,
-            ].includes(route.name)
-              ? () => {
-                  return null;
-                }
-              : undefined,
+            ].includes(route.name) ? () => { return null; } : undefined,
 
             tabBarShowLabel: false,
             tabBarStyle: { height: 130, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
@@ -103,17 +100,7 @@ export default function MainContainer(){
                     </View>
                 )
   
-              } 
-              else if (rn === settingsName) {
-                outlined = focused ? '#ff0000' : '#808080';
-                return (
-                    <View>
-                        <Feather style={{ marginBottom: 0 }} name="menu" size={50} color={outlined} backgroundColor={"#ffffff"} />
-                        <Text style={{color:outlined, fontSize:20,position:'relative',left:-5,bottom:-3,textAlign:'center'}}>Menu</Text>
-                    </View>
-                )
-              }
-              else if (rn === locateName) {
+              } else if (rn === locateName) {
                 outlined = focused ? '#ff0000' : '#808080';
                 return (
                     <View>

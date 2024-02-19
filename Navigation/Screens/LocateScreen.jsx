@@ -51,6 +51,7 @@ function LocateScreen({route,navigation}){
 
   let frame1 = 0;
   const computeRecognitionEveryNFrames1 = 60;
+  
   function takePic(){
     
     const loop = async () => {
@@ -144,14 +145,14 @@ function LocateScreen({route,navigation}){
   const [legoPrediction, setLegoPrediction] = useState(null);
 
   //prediction state to show prediction modal
-  const [showPrediction, setShowPrediction] = useState(false) 
+  const [showPrediction, setShowPrediction] = useState(false);
 
-  const [legoLocations, setLegoLocations] = useState([])
+  const [legoLocations, setLegoLocations] = useState([]);
 
-  const [partLocation, setPartLocation] = useState(false)
+  const [partLocation, setPartLocation] = useState(false);
   
 
-  const legos = require('../../assets/database.json')
+  const legos = require('../../assets/database.json');
   
   //speech function
   const speakPrediction = () => {
@@ -164,11 +165,6 @@ function LocateScreen({route,navigation}){
   //     const textToSay = 'Dismiss';
   //     Speech.speak(textToSay);
   //   };
-
-
-
-
-
 
 
 
