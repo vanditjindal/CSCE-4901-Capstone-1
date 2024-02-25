@@ -39,5 +39,3 @@ it('should handle invalid mask dimensions', async () => {
     assert.strictEqual(croppedImage, null, 'Cropped image should be null for missing image data and mask dimension');
   });
 });
-  
-});
