@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/bcfLogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -31,11 +31,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "93ec2a55-02f1-4abb-b358-1fae90d1477a"
-      }
     },
     "runtimeVersion": {
       "policy": "appVersion"

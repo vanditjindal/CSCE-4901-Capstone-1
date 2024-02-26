@@ -41,7 +41,7 @@
     "expo-image-manipulator": "~11.3.0",
     "expo-image-picker": "~14.3.2",
     "expo-media-library": "~15.4.1",
-    "expo-permissions": "^14.4.0",
+    "expo-permissions": "~14.2.1",
     "expo-sharing": "~11.5.0",
     "expo-speech": "~11.3.0",
     "expo-status-bar": "~1.6.0",
