@@ -23,6 +23,7 @@ function SettingsModal() {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  
 // source= theme.theme == "dark" ? require('../assets/information.png') : require('../assets/lightInfo.png')
   return (
     <View style={{top:40, backgroundColor: theme.background}}>

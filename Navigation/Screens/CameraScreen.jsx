@@ -381,7 +381,9 @@ function CameraScreen({navigation}){
           /> ,
 
           model ? 
-            <View key = {2} style = {{flexDirection: 'row', justifyContent: 'space-between', position: 'absolute',bottom: -15, left: 1, right:10,  zIndex: 10}}>
+            <View key = {2} style = {{flexDirection: 'row', justifyContent: 'space-between', position: 'absolute',bottom: -15, left: 8, right:10,  zIndex: 10}}>
+
+              {/* Camera capture button for capturing an image, in the middle of screen*/}
               <Pressable
                   key={3}
                   onPress={handleImageCapture}
@@ -395,7 +397,7 @@ function CameraScreen({navigation}){
                   ]}>
                 </Pressable>
 
-                
+                {/*Image import button, on the left side in the camera screen*/}
                 <Pressable key={4}
                   onPress={() => handleImageImport()}
                   style={({ pressed }) => [
@@ -406,7 +408,7 @@ function CameraScreen({navigation}){
                     }, 
                     styles.imageButton
                   ]}>
-                  <Feather style={{}} name = "image" size = {40} backgroundColor={"#ffffff"} ></Feather>
+                  <Feather style={{top: 10, left: 9, maxWidth: 50}} name = "image" size = {50} backgroundColor={"#ffffff"} ></Feather>
                 </Pressable>
                 
              </View>
@@ -458,7 +460,7 @@ camera: {
 },
 captureButton: {
   position: 'absolute',
-  left: Dimensions.get('screen').width / 2 - 45,
+  left: Dimensions.get('screen').width / 2 - 50,
   bottom: 40,
   width: 75,
   zIndex: 10,
@@ -505,9 +507,11 @@ dismissButton: {
   backgroundColor: '#dae0db',
 },
 imageButton: {
+  position: 'absolute',
   bottom: 40,
-  width: 40,
-  height: 40,
+  width: 70,
+  height: 70,
+  borderRadius: 20,
   zIndex: 10
 }
 
