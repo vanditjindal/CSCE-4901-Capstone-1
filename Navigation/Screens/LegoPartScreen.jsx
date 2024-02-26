@@ -91,7 +91,7 @@ function LegoPartScreen({ route, navigation}){
             
             
             <Pressable onPress={() => navigation.goBack()} name="left" style={{...styles.backButton, backgroundColor: theme.theme == "dark" ? "#000000" : theme.background}} size="30"> 
-                <Text style={{fontSize: 25, color:"#ff0000", left: 5 }}> {'<'} Home</Text>
+                <Text style={{fontSize: 20, color:"#ff0000", left: 5 }}> {'<'} Home</Text>
             </Pressable>
 
             <View style={styles.partContainer}>
@@ -132,23 +132,23 @@ const styles = StyleSheet.create({
     locateButton: {
         position: "absolute",
         top:"85%",
-        left: "10%",
+        left: "15%",
         alignItems: 'center',
         justifyContent: 'center',
-        width: "80%",
-        height: "9%",
+        width: "70%",
+        height: "8%",
         borderRadius: 50,
         backgroundColor: "#ff0000",
     },
     locateText: {
-        fontSize: 25,
+        fontSize: 23,
         fontWeight: 'bold',
         color: 'white',
     },
     
     infoText:{
-        fontSize: 22,
-        padding: 15,
+        fontSize: 18,
+        padding: 20,
         fontWeight: "bold"
     },
     image:{
