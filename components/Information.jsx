@@ -36,9 +36,11 @@ function InformationModal() {
         <Text style={{...styles.text, color: theme.color}}>5. If you need additional help finding the lego piece, the app will help you find the piece with sound with Live Feed Mode</Text>
         <Text style={{...styles.text, color: theme.color}}>6. Enjoy the app and have fun! </Text>
         
-        <Pressable style={styles.ExitButton} onPress={toggleModal}>
-          <Text style={styles.ExitText}>Exit</Text>
+        <Pressable style={{...styles.ExitButton}} onPress={toggleModal}>
+        <Text style={styles.ExitText}>Exit</Text>
+        
         </Pressable>
+        
         
         </View>
       </Modal>
@@ -79,11 +81,11 @@ const styles = StyleSheet.create({
     flex:1, 
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
-    maxHeight: 600
+    maxHeight: 520
   },
 
   ExitButton: {
-    // bottom:"1%",
+    //bottom:"111%",
     top: 30,
     left: "10%",
     alignItems: 'center',
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    marginTop:30,
+    marginTop:25,
     marginLeft:20,
     marginRight:20,
     fontSize:20, 

@@ -74,27 +74,49 @@ export default function MainContainer(){
               : undefined,
 
             tabBarShowLabel: false,
-            tabBarStyle: { height: 130, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
+            tabBarStyle: { height: 105, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
             tabBarIcon: ({ focused}) => {
               let outlined;
               let rn = route.name;
-  
-              if (rn === homeName) {
-                outlined = focused ? '#ff0000' : '#808080';
-                return (
-                    <View>
-                        <Entypo name="home" size={40} color={outlined} backgroundColor={"#ffffff"} />
-                        <Text style={{color:outlined, fontSize:20,position:'relative',left:-5,bottom:-3,textAlign:'center'}}>Home</Text>
-                    </View>
-                )
+      
+      if (rn === homeName) {
+        outlined = focused ? '#ff0000' : '#808080';
+        return (
+          <View style={{ alignItems: 'center' }}>
+            <View
+              style={{
+                backgroundColor: themeMode === true ? '#1a1a1a' : '#FFFFFF',
+                borderRadius: 25,
+                width: 50,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Entypo name="home" size={38} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: 1, marginBottom: -8 }} />
+            </View>
+            <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Home</Text>
+          </View>
+        );
                 
               } else if (rn === cameraName) {
                 outlined = focused ? '#ff0000' : '#808080';
                 return (
-                    <View>
-                        <EvilIcons name="camera" size={50} color={outlined} backgroundColor={"#ffffff"} />
-                        <Text style={{color:outlined, fontSize:20,position:'relative',left:-10,bottom:-3,textAlign:'center'}}>Identify</Text>
-                    </View>
+                  <View style={{ alignItems: 'center' }}>
+                  <View
+                    style={{
+                      backgroundColor: themeMode === true ? '#1a1a1a' : '#FFFFFF',
+                      borderRadius: 25,
+                      width: 50,
+                      height: 50,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <EvilIcons name="camera" size={50} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: 1, marginBottom: -8 }} />
+                  </View>
+                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Identify</Text>
+                </View>
                 )
   
               } 
@@ -110,10 +132,21 @@ export default function MainContainer(){
               else if (rn === locateName) {
                 outlined = focused ? '#ff0000' : '#808080';
                 return (
-                    <View>
-                        <IonIcon name="locate" size={45} color={outlined} backgroundColor={"#ffffff"} />
-                        <Text style={{color:outlined, fontSize:20,position:'relative',left:-5,bottom:-3,textAlign:'center'}}>Locate</Text>
-                    </View>
+                  <View style={{ alignItems: 'center' }}>
+                  <View
+                    style={{
+                      backgroundColor: themeMode === true ? '#1a1a1a' : '#FFFFFF',
+                      borderRadius: 25,
+                      width: 50,
+                      height: 50,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <IonIcon name="locate" size={45} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: -7, marginBottom: -8 }} />
+                  </View>
+                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -5, bottom: -3, textAlign: 'center' }}>Locate</Text>
+                </View>
                 )
               } 
             },

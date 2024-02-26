@@ -24,11 +24,30 @@ function SettingsModal() {
 // source= theme.theme == "dark" ? require('../assets/information.png') : require('../assets/lightInfo.png')
   return (
     <View style={{top:40, backgroundColor: theme.background}}>
-      <TouchableOpacity onPress={toggleModal} style={{...styles.InformationStyle, backgroundColor: theme.background}} >
-      <Feather style={{ marginTop: -50, position:'relative', marginLeft: -360, width: 50, height: 50, color: theme.theme == "light" ? "#000000" : "white"  }} name="settings" size={35} backgroundColor={"#ffffff"} 
-      
-      />
-      </TouchableOpacity>
+      <TouchableOpacity
+    onPress={toggleModal}
+    style={{
+      ...styles.InformationStyle,
+      backgroundColor: theme.theme === 'dark' ? '#000000' : theme.background, // Set background color based on theme
+    }}
+  >
+    <Feather
+      style={{
+        marginTop: -50,
+        position: 'relative',
+        marginLeft: -330,
+        width: 50,
+        height: 50,
+        color: theme.theme === 'light' ? '#000000' : 'white',
+        backgroundColor: theme.theme === 'dark' ? '#000000' : theme.background, // Set background color based on theme
+        borderRadius: 25, // Optional: Add rounded corners to create a circular background
+        alignItems: 'center', // Center the icon horizontally
+        justifyContent: 'center', // Center the icon vertically
+      }}
+      name="settings"
+      size={35}
+    />
+  </TouchableOpacity>
   
       <Modal 
         isVisible={isModalVisible}
@@ -36,14 +55,12 @@ function SettingsModal() {
       >
         <View style={{...styles.ModalStyle, backgroundColor: theme.background}}>
 
-        <Text style={{marginTop:30, marginLeft:30,fontSize:32, fontWeight:'bold', color: theme.color}}>Settings</Text>
-        <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:50}}>
+        <Text style={{marginTop:35, marginLeft:30,fontSize:28, fontWeight:'bold', color: theme.color}}>Settings</Text>
+        <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:30}}>
             <Switch style={{flexDirection:'row', alignItems:'center',marginLeft:0,marginTop:-20}} value={themeMode} onValueChange={(value) => {
               
               setThemeMode(value);
               EventRegister.emit("changeTheme", value);
-              
-              
               }} onPress={() => setThemeMode(!themeMode)}
             />
             
@@ -54,8 +71,8 @@ function SettingsModal() {
             <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:10}}>
             </View>
 
-            <Text style={{marginTop:20, marginLeft:30,fontSize:32, fontWeight:'bold', color: theme.color}}>Accessibility Settings</Text>
-            <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:30}}>
+            <Text style={{marginTop:20, marginLeft:30,fontSize:28, fontWeight:'bold', color: theme.color}}>Accessibility Settings</Text>
+            <View style={{flexDirection:'row', alignItems:'center',marginLeft:30,marginTop:15, marginBottom:-15}}>
             <Switch value={ttsMode} onValueChange={(value) => {
               
               setTtsMode(value);
@@ -112,7 +129,7 @@ const styles = StyleSheet.create({
     flex:1, 
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
-    maxHeight: 400
+    maxHeight: 330
   },
 
   ExitButton: {
