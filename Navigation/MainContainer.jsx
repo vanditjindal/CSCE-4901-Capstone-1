@@ -74,7 +74,7 @@ export default function MainContainer(){
               : undefined,
 
             tabBarShowLabel: false,
-            tabBarStyle: { height: 120, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
+            tabBarStyle: { height: 105, backgroundColor: themeMode === true ? "#1a1a1a" : "white" },
             tabBarIcon: ({ focused}) => {
               let outlined;
               let rn = route.name;
