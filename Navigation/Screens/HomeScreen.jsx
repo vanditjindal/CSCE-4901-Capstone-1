@@ -19,15 +19,34 @@ function HomeScreen({route, navigation}){
   //search term that is typed in the search bar
   const [searchTerm, setSearchTerm] = useState("")
 
+  // New state for search history
+  const [searchHistory, setSearchHistory] = useState([]);
+
   //updates searching if letters are typed in the search bar
   const updateSearch = (searchTerm) => {
     setSearchTerm(searchTerm)
+
+    // Updated search function
+    const updateSearch = (searchTerm) => {
+      setSearchTerm(searchTerm);
+
+      // Update search history
+      if (searchTerm.trim().length > 0) {
+        const updatedHistory = [searchTerm, ...searchHistory.slice(0, 5)];
+        setSearchHistory(updatedHistory);
+      }
+    }
   };
+    // Handle history item click
+    const handleHistoryItemClick = (historyItem) => {
+      setSearchTerm(historyItem);
+      //navigation.navigate('Lego', { item: /* pass any relevant data based on the historyItem */ });
+    };
 
   //function that searches and filters the array based on search request
   let results = legos.filter(function(lego) {
     //if user types in spaces
-    if (searchTerm.trim().length == 0){
+    if (searchTerm.trim().length === 0){
       return legos
     }
       
@@ -79,6 +98,17 @@ function HomeScreen({route, navigation}){
           </ListItem>
       ))}
 
+        {/* Display search history below the SearchBar */}
+        {searchHistory.length > 0 && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.historyContainer}>
+              {searchHistory.map((historyItem, index) => (
+                  <Pressable key={index} onPress={() => handleHistoryItemClick(historyItem)}>
+                    <Text style={{ marginRight: 10, color: theme.color }}>{historyItem}</Text>
+                  </Pressable>
+              ))}
+            </ScrollView>
+        )}
+
       </ScrollView>
       <StatusBar style="auto" />
       </View>
@@ -91,7 +121,14 @@ const styles = StyleSheet.create({
     left:20, 
     marginBottom:10, 
     fontSize:15,
-  }
+  },
+
+  // New style for search history container
+  historyContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginLeft: 20,
+  },
 });
 
 export default HomeScreen
