@@ -381,38 +381,38 @@ function CameraScreen({navigation}){
           /> ,
 
           model ? 
+
             <View key = {2} style = {{flexDirection: 'row', justifyContent: 'space-between', position: 'absolute',bottom: -15, left: 8, right:10,  zIndex: 10}}>
 
               {/* Camera capture button for capturing an image, in the middle of screen*/}
               <Pressable
-                  key={3}
-                  onPress={handleImageCapture}
-                  style={({ pressed }) => [
-                    {
-                      backgroundColor: pressed
-                        ? 'grey'
-                        : 'white'
-                    },
-                    styles.captureButton
-                  ]}>
-                </Pressable>
+                key={3}
+                onPress={handleImageCapture}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed
+                      ? 'grey'
+                      : 'white'
+                  },
+                  styles.captureButton
+                ]}>
+              </Pressable>
 
-                {/*Image import button, on the left side in the camera screen*/}
-                <Pressable key={4}
-                  onPress={() => handleImageImport()}
-                  style={({ pressed }) => [
-                    {
-                      backgroundColor: pressed
-                        ? 'grey'
-                        : 'white'
-                    }, 
-                    styles.imageButton
-                  ]}>
-                  <Feather style={{top: 10, left: 9, maxWidth: 50}} name = "image" size = {50} backgroundColor={"#ffffff"} ></Feather>
-                </Pressable>
-                
-             </View>
-
+              {/*Image import button, on the left side in the camera screen*/}
+              <Pressable key={4}
+                onPress={() => handleImageImport()}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed
+                      ? 'grey'
+                      : 'white'
+                  }, 
+                  styles.imageButton
+                ]}>
+                <Feather style={{top: 10, left: 9, maxWidth: 50}} name = "image" size = {50} backgroundColor={"#ffffff"} ></Feather>
+              </Pressable>
+              
+            </View>
           : 
 
           <ActivityIndicator key={5} animating= {true}  style={[styles.captureButton]} size="large" />
