@@ -11,6 +11,7 @@ import { bundleResourceIO } from '@tensorflow/tfjs-react-native';
 import { Switch } from "@react-native-material/core";
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as Speech from 'expo-speech';
+import Feather from 'react-native-vector-icons/Feather';
 import * as Permissions from 'expo-permissions';
 
 
@@ -111,6 +112,8 @@ function CameraScreen({navigation}){
       })();
   }, []);
 
+
+  //An async function to handle image import, it will check for library permissions first and then will allow the user to select an image
   const handleImageImport = async () => {
     try {
       const { status } = await MediaLibrary.getPermissionsAsync();
@@ -129,7 +132,9 @@ function CameraScreen({navigation}){
   
       if (!result.canceled) {
         console.log(result.uri);
-        // Process the selected image
+        
+        // TODO: Process the selected image
+        await processImagePrediction(result.uri);
       }
     } catch (error) {
       console.error('Error selecting image:', error);
@@ -143,7 +148,7 @@ function CameraScreen({navigation}){
   }
 
 
-    //live stream predictions, glitches in the beginning because model is still loading, needs to toggle button on and off to unglitch
+  //live stream predictions, glitches in the beginning because model is still loading, needs to toggle button on and off to unglitch
   let frame = 0;
   const computeRecognitionEveryNFrames = 60;
 
@@ -224,7 +229,7 @@ function CameraScreen({navigation}){
 
   const handleTensorCapture = async (images: IterableIterator<tf.Tensor3D>) => {
     const loop = async () => { 
-      setTensorImage(images.next().value)
+      setTensorImage(images.next().value);
       requestAnimationFrame(loop);
       
     }
@@ -346,7 +351,7 @@ function CameraScreen({navigation}){
 
       {/* works but ram heavy  */}
       {/* livemode check, different components fire depending whether user in live or picture mode, capture button disappears from livemode */}
-      {liveMode?
+      {liveMode ?
         <TensorCamera
           style={styles.camera}
           type={Camera.Constants.Type.back}
@@ -373,37 +378,47 @@ function CameraScreen({navigation}){
             autorender={true}
             cameraTextureHeight={1920}
             cameraTextureWidth={1080}
-          />,
-          model?
-          <Pressable
-            key={2}
-            onPress={() => handleImageCapture()}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed
-                  ? 'grey'
-                  : 'white'
-              },
-              styles.captureButton
-            ]}>
-          </Pressable> : <ActivityIndicator key={3} animating= {true}  style={[styles.captureButton]} size="large" />
+          /> ,
+
+          model ? 
+            <View key = {2} style = {{flexDirection: 'row', justifyContent: 'space-between', position: 'absolute',bottom: -15, left: 1, right:10,  zIndex: 10}}>
+              <Pressable
+                  key={3}
+                  onPress={handleImageCapture}
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed
+                        ? 'grey'
+                        : 'white'
+                    },
+                    styles.captureButton
+                  ]}>
+                </Pressable>
+
+                
+                <Pressable key={4}
+                  onPress={() => handleImageImport()}
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed
+                        ? 'grey'
+                        : 'white'
+                    }, 
+                    styles.imageButton
+                  ]}>
+                  <Feather style={{}} name = "image" size = {40} backgroundColor={"#ffffff"} ></Feather>
+                </Pressable>
+                
+             </View>
+
+          : 
+
+          <ActivityIndicator key={5} animating= {true}  style={[styles.captureButton]} size="large" />
           
           // <ActivityIndicator animating= {loading} hidesWhenStopped = {!loading} style={{backgroundColor: "transparent"}} key= {3} size="large" />
         ]
       }
-      {/* Image import button */}
-      <Pressable
-        onPress={handleImageImport}
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? 'grey'
-              : 'white'
-          },
-          styles.importButton
-        ]}>
-        <Text style={styles.buttonText}>Import Image</Text>
-      </Pressable>
+      
       
     </View>
   );
@@ -446,7 +461,7 @@ captureButton: {
   left: Dimensions.get('screen').width / 2 - 45,
   bottom: 40,
   width: 75,
-  zIndex: 75,
+  zIndex: 10,
   height: 75,
   borderRadius: 75,
 
@@ -488,6 +503,12 @@ dismissButton: {
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: '#dae0db',
+},
+imageButton: {
+  bottom: 40,
+  width: 40,
+  height: 40,
+  zIndex: 10
 }
 
 });
