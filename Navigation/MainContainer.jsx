@@ -115,7 +115,7 @@ export default function MainContainer(){
                   >
                     <EvilIcons name="camera" size={50} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: 1, marginBottom: -8 }} />
                   </View>
-                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Camera</Text>
+                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Identify</Text>
                 </View>
                 )
   
@@ -145,7 +145,7 @@ export default function MainContainer(){
                   >
                     <IonIcon name="locate" size={45} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: -7, marginBottom: -8 }} />
                   </View>
-                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -5, bottom: -3, textAlign: 'center' }}>Identify</Text>
+                  <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: -5, bottom: -3, textAlign: 'center' }}>Locate</Text>
                 </View>
                 )
               } 
