@@ -1,5 +1,8 @@
 import {Dimensions} from 'react-native';
-import * as ImageManipulator from 'expo-image-manipulator';
+import * as React from 'react';
+import { View, Image, Button } from 'react-native';
+import { ImageManipulator } from 'expo-image-manipulator';
+import React, { useState } from 'react';
 
 const {height: DEVICE_HEIGHT, width: DEVICE_WIDTH} = Dimensions.get('window');
 
@@ -18,6 +21,7 @@ export const cropPicture = async (imageData, maskDimension) => {
           originY: height / 2 - cropHeight / 2,
           width: cropWidth,
           height: cropHeight,
+          //borderRadius: 200
         },
       },
       {

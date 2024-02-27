@@ -1,3 +1,6 @@
+
+//Theme object
+
 const theme = {
     light:{
             theme:"light",

@@ -7,7 +7,10 @@ import { Divider} from 'react-native-paper';
 import themeContext from '../../config/themeContext';
 import * as Speech from 'expo-speech';
 import ttsContext from '../../config/ttsContext';
+
+
 function LegoPartScreen({ route, navigation}){
+
     //params passed from homepage
     const partId = route.params.item.PartID;
     const legoName = route.params.item.PartName;
@@ -15,15 +18,17 @@ function LegoPartScreen({ route, navigation}){
     const legoColor = route.params.item.Colour;
     const legoQuantity = route.params.item.Quantity;
     const imageURL = route.params.item.ImageURL;
+    
     // const legoSetCount = route.params.item.SetCount;
     const legoCategory = route.params.item.Category;
    
     //variable to toggle full screen image
     const [showModal, setShowModal] = useState(false)
 
-    // theme
+    // theme and texct to speech contextx loaded
     const theme = useContext(themeContext);
     const tts = useContext(ttsContext);
+
     //Text-to-Speech Functions
     const speakLegoNameAndID = () => {
         const textToSay = 'LEGO piece' + legoName + ',' + 'LEGO ID' + partId;
@@ -55,6 +60,7 @@ function LegoPartScreen({ route, navigation}){
             Speech.speak(textToSay);
         }
     };
+
     //page html
     return(
 
@@ -85,7 +91,7 @@ function LegoPartScreen({ route, navigation}){
             
             
             <Pressable onPress={() => navigation.goBack()} name="left" style={{...styles.backButton, backgroundColor: theme.theme == "dark" ? "#000000" : theme.background}} size="30"> 
-                <Text style={{fontSize: 25, color:"#ff0000", left: 5 }}> {'<'} Home</Text>
+                <Text style={{fontSize: 20, color:"#ff0000", left: 5 }}> {'<'} Home</Text>
             </Pressable>
 
             <View style={styles.partContainer}>
@@ -126,23 +132,23 @@ const styles = StyleSheet.create({
     locateButton: {
         position: "absolute",
         top:"85%",
-        left: "10%",
+        left: "15%",
         alignItems: 'center',
         justifyContent: 'center',
-        width: "80%",
-        height: "9%",
+        width: "70%",
+        height: "8%",
         borderRadius: 50,
         backgroundColor: "#ff0000",
     },
     locateText: {
-        fontSize: 25,
+        fontSize: 23,
         fontWeight: 'bold',
         color: 'white',
     },
     
     infoText:{
-        fontSize: 22,
-        padding: 15,
+        fontSize: 18,
+        padding: 20,
         fontWeight: "bold"
     },
     image:{
@@ -150,8 +156,10 @@ const styles = StyleSheet.create({
         left: "5%",
         width: '90%',
         height: '75%',
-        resizeMode: 'contain',
-        objectfit: "contain"
+        resizeMode: 'contain'
+        //////
+        //Removed the objectfit as it was giving an error as a not valid key for prop style
+        //objectfit: "contain"
     },
     title:{
         position: "relative",

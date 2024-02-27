@@ -10,28 +10,28 @@ import { useFocusEffect } from '@react-navigation/native';
 
 
 
-  //camera screen function with navigation as argument
-  function LocateScreen({route,navigation}){
-    
+//camera screen function with navigation as argument
+function LocateScreen({route,navigation}){
+  
 
-    useFocusEffect(
-      React.useCallback(() => {
-        // Useful for cleanup functions
-        return () => {
-          try{
-            navigation.setParams({partId: null});
-            
-          }
-          catch(e){
-
-          }
+  useFocusEffect(
+    React.useCallback(() => {
+      // Useful for cleanup functions
+      return () => {
+        try{
+          navigation.setParams({partId: null});
           
-        };
-      }, []));
+        }
+        catch(e){
+
+        }
+        
+      };
+    }, []));
 
 
 
-    const textureDims = Platform.OS === 'ios' ?
+  const textureDims = Platform.OS === 'ios' ?
   {
     height: 1920,
     width: 1080,
@@ -41,208 +41,205 @@ import { useFocusEffect } from '@react-navigation/native';
     width: 1600,
   };
 
-    //camera permissions
-    const [hasCameraPermission, setHasCameraPermission] = useState();
-    const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
+  //camera permissions
+  const [hasCameraPermission, setHasCameraPermission] = useState();
+  const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
+
+
+  let cameraRef = useRef();
+
+
+  let frame1 = 0;
+  const computeRecognitionEveryNFrames1 = 60;
   
-
-    let cameraRef = useRef();
-
-
-    let frame1 = 0;
-    const computeRecognitionEveryNFrames1 = 60;
-    function takePic(){
-      
-      const loop = async () => {
-        try{
-          if(frame1 % computeRecognitionEveryNFrames1 === 0){
-            let options = {
-              base64: true,
-            };
-            
-            
-            let image = await cameraRef.current.takePictureAsync(options);
-            
-            const actions = [
-              {
-                resize: {
-                  width: 400,
-                  height: 512,
-                },
-              },
-            ];
-            const saveOptions = {
-              format: ImageManipulator.SaveFormat.JPEG,
-              base64: true,
-            };
-            image =  await ImageManipulator.manipulateAsync(image.uri, actions, saveOptions);
-            // image = await loadImageBase64(image.uri);
-            // MediaLibrary.saveToLibraryAsync(image.uri)
-      
-            axios({
-                method: "POST",
-                url: "https://detect.roboflow.com/lego-detection-fsxai/8",
-                params: {
-                    api_key: "uOLEkn7ugJbDKQy6Gu0k"
-                },
-                data: image.base64,
-                headers: {
-                  "Content-Type": "application/x-www-form-urlencoded"
-              }
-        
-            })
-            .then(function(response) {
-              let res = []
-              try{
-                if (route.params.partId){
-                  // console.log("ran")
-
-                    for(var i = 0; i < response.data.predictions.length; i++ ){
-                      if(response.data.predictions[i].class === route.params.partId){
-                        res = [response.data.predictions[i]];
-                        setPartLocation(true)
-                        Vibration.vibrate();
-                      }
-                  }
-                }else{
-                  res = response.data.predictions
-                }
-              }
-              catch(e){
-                res = response.data.predictions
-              }finally{
-                setLegoLocations(res)
-              }
-                
+  function takePic(){
     
-            })
-            .catch(function(error) {
-                console.log(error.message);
-            });
-            requestAnimationFrame(loop);
+    const loop = async () => {
+      try{
+        if(frame1 % computeRecognitionEveryNFrames1 === 0){
+          let options = {
+            base64: true,
+          };
           
-        }
-      }
-      catch(error){
-        return
-      }
-      }
-      
-        loop()
-      
-    };
-
-
-
-
-
-    //unused maybe useful variables
-    // const [isProcessing, setIsProcessing] = useState(false);
-
-
-    //this is where the state of prediction is updated
-    const [legoPrediction, setLegoPrediction] = useState(null);
-  
-    //prediction state to show prediction modal
-    const [showPrediction, setShowPrediction] = useState(false) 
-
-    const [legoLocations, setLegoLocations] = useState([])
-
-    const [partLocation, setPartLocation] = useState(false)
+          
+          let image = await cameraRef.current.takePictureAsync(options);
+          
+          const actions = [
+            {
+              resize: {
+                width: 400,
+                height: 512,
+              },
+            },
+          ];
+          const saveOptions = {
+            format: ImageManipulator.SaveFormat.JPEG,
+            base64: true,
+          };
+          image =  await ImageManipulator.manipulateAsync(image.uri, actions, saveOptions);
+          // image = await loadImageBase64(image.uri);
+          // MediaLibrary.saveToLibraryAsync(image.uri)
     
-  
-    const legos = require('../../assets/database.json')
-    
-    //speech function
-    const speakPrediction = () => {
-      const textToSay = 'LEGO piece Predicted' + legoPrediction[0].PartName;
-      Speech.speak(textToSay);
+          axios({
+              method: "POST",
+              url: "https://detect.roboflow.com/lego-detection-fsxai/8",
+              params: {
+                  api_key: "uOLEkn7ugJbDKQy6Gu0k"
+              },
+              data: image.base64,
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+      
+          })
+          .then(function(response) {
+            let res = []
+            try{
+              if (route.params.partId){
+                // console.log("ran")
 
-    };
+                  for(var i = 0; i < response.data.predictions.length; i++ ){
+                    if(response.data.predictions[i].class === route.params.partId){
+                      res = [response.data.predictions[i]];
+                      setPartLocation(true)
+                      Vibration.vibrate();
+                    }
+                }
+              }else{
+                res = response.data.predictions
+              }
+            }
+            catch(e){
+              res = response.data.predictions
+            }finally{
+              setLegoLocations(res)
+            }
+              
+  
+          })
+          .catch(function(error) {
+              console.log(error.message);
+          });
+          requestAnimationFrame(loop);
+        
+      }
+    }
+    catch(error){
+      return
+    }
+    }
+    
+      loop()
+    
+  };
+
+
+
+
+
+  //unused maybe useful variables
+  // const [isProcessing, setIsProcessing] = useState(false);
+
+
+  //this is where the state of prediction is updated
+  const [legoPrediction, setLegoPrediction] = useState(null);
+
+  //prediction state to show prediction modal
+  const [showPrediction, setShowPrediction] = useState(false);
+
+  const [legoLocations, setLegoLocations] = useState([]);
+
+  const [partLocation, setPartLocation] = useState(false);
+  
+
+  const legos = require('../../assets/database.json');
+  
+  //speech function
+  const speakPrediction = () => {
+    const textToSay = 'LEGO piece Predicted' + legoPrediction[0].PartName;
+    Speech.speak(textToSay);
+
+  };
+  
   // const speakDismiss = () => {
   //     const textToSay = 'Dismiss';
   //     Speech.speak(textToSay);
   //   };
-  
+
+
+
+  useEffect(() => {
+      (async () => {
+        //checks permissions
+        const cameraPermission = await Camera.requestCameraPermissionsAsync();
+        const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
+        setHasCameraPermission(cameraPermission.status === "granted");
+        setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
+        
+
+      })();
+    }, []);
+
+
+    if (hasCameraPermission === undefined) {
+      return <Text>Requesting permissions...</Text>
+    } else if (!hasCameraPermission) {
+      return <Text>Permission for camera not granted. Please change this in settings.</Text>
+    }
 
 
 
 
-
-
-
-    useEffect(() => {
-        (async () => {
-          //checks permissions
-          const cameraPermission = await Camera.requestCameraPermissionsAsync();
-          const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
-          setHasCameraPermission(cameraPermission.status === "granted");
-          setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
-          
-
-        })();
-      }, []);
-
-
-      if (hasCameraPermission === undefined) {
-        return <Text>Requesting permissions...</Text>
-      } else if (!hasCameraPermission) {
-        return <Text>Permission for camera not granted. Please change this in settings.</Text>
-      }
-
-
-
-
-    return (
-      <View style={styles.container}>
-      {/* this is the prediction modal */}
-        <Modal visible={showPrediction} transparent={true} animationType="slide" >
-          <View style={styles.modal}>
-            <View style={styles.modalContent}>
-              {/* if theres a prediction ready, it is displayed to user, else it is just the loading screen */}
-              {legoPrediction ? 
-                [
-                  <Text key= {0} style={{ fontSize: 30, color:"black", fontWeight:'bold'}}onPress={speakPrediction}> {"Prediction: " + legoPrediction[1] + "%"}</Text>,
-                  <Image
-                  key = {1}
-                  style={{ width: '50%', height: "50%", resizeMode: 'contain' }}
-                  source={{ uri: legoPrediction[0].ImageURL }}
-                  />,
-                  <Text key = {2}>{legoPrediction[0].PartName}</Text>,
-                  // takes user to the full part information if they desire
-                  <Pressable key = {3}
-                    style={styles.goToPartButton}
-                    onPress={() => {
-                      navigation.navigate('Lego',{ item:legoPrediction[0]})
-                      setShowPrediction(false)
-                      setLegoPrediction(null)
-                      
-                      
-                    }}>
-                    <Text>Go To Part Page</Text>
-                  </Pressable> 
-                ]:
-                <ActivityIndicator size="large" />
-              }
-              {/* dismiss button that serves as cancel even if there is no prediction */}
-              <Pressable
-                style={styles.dismissButton}
-                onPress={() => {
-                  setShowPrediction(false)
-                  setLegoPrediction(null)
-                }}>
-                <Text>Dismiss</Text>
-              </Pressable>
-            </View>
+  return (
+    <View style={styles.container}>
+    {/* this is the prediction modal */}
+      <Modal visible={showPrediction} transparent={true} animationType="slide" >
+        <View style={styles.modal}>
+          <View style={styles.modalContent}>
+            {/* if theres a prediction ready, it is displayed to user, else it is just the loading screen */}
+            {legoPrediction ? 
+              [
+                <Text key= {0} style={{ fontSize: 30, color:"black", fontWeight:'bold'}}onPress={speakPrediction}> {"Prediction: " + legoPrediction[1] + "%"}</Text>,
+                <Image
+                key = {1}
+                style={{ width: '50%', height: "50%", resizeMode: 'contain' }}
+                source={{ uri: legoPrediction[0].ImageURL }}
+                />,
+                <Text key = {2}>{legoPrediction[0].PartName}</Text>,
+                // takes user to the full part information if they desire
+                <Pressable key = {3}
+                  style={styles.goToPartButton}
+                  onPress={() => {
+                    navigation.navigate('Lego',{ item:legoPrediction[0]})
+                    setShowPrediction(false)
+                    setLegoPrediction(null)
+                    
+                    
+                  }}>
+                  <Text>Go To Part Page</Text>
+                </Pressable> 
+              ]:
+              <ActivityIndicator size="large" />
+            }
+            {/* dismiss button that serves as cancel even if there is no prediction */}
+            <Pressable
+              style={styles.dismissButton}
+              onPress={() => {
+                setShowPrediction(false)
+                setLegoPrediction(null)
+              }}>
+              <Text>Dismiss</Text>
+            </Pressable>
           </View>
-        </Modal>
+        </View>
+      </Modal>
 
 
-      <Camera style={styles.container} ref={cameraRef} onCameraReady={()=>takePic()}/>
-      
-      {legoLocations.map((prediction, index) => (
-        [
-        <View  key = {index} onStartShouldSetResponder={() => { {
+    <Camera style={styles.container} ref={cameraRef} onCameraReady={()=>takePic()}/>
+    
+    {legoLocations.map((prediction, index) => (
+      [
+      <View  key = {index} onStartShouldSetResponder={() => { {
           for (var i = 0; i < legos.length; i++){
             if (legos[i].PartID === prediction.class){
               setLegoPrediction([legos[i], prediction.confidence.toFixed(2) * 100 ])
@@ -260,27 +257,27 @@ import { useFocusEffect } from '@react-navigation/native';
           // left: ,
           // right:  
           }]}
-          >
-            
-            <Text style ={styles.predictionClass}>{prediction.class} ({prediction.confidence.toFixed(2) * 100}%)</Text>
-          </View>,
+      >
           
+          <Text style ={styles.predictionClass}>{prediction.class} ({prediction.confidence.toFixed(2) * 100}%)</Text>
+        </View>,
         
-          partLocation && 
-            <View key = {index+1} style={ styles.partLocationContainer}>
-                <Text style={ [{fontSize: 30,left: '6%',color: "#ff0000",}]}>Part Located!</Text>
-                <Text style={ styles.partLocationText}>Width:{((Dimensions.get('window').width/400) * prediction.width).toFixed(0)}</Text>
-                <Text style={ styles.partLocationText}>Height:{(((Dimensions.get('window').height-130)/512)* prediction.height).toFixed(0)}</Text>
-                <Text style={ styles.partLocationText}>X:{(((prediction.y/512) * (Dimensions.get('window').height-130)) - (((Dimensions.get('window').height-130)/512)* prediction.height/2)).toFixed(0)}</Text>
-                <Text style={ styles.partLocationText}>Y:{(((prediction.x / 400) * Dimensions.get('window').width) -  ((Dimensions.get('window').width/400) * prediction.width/2)).toFixed(0)}</Text>
-            </View>]
-          
+      
+        partLocation && 
+          <View key = {index+1} style={ styles.partLocationContainer}>
+              <Text style={ [{fontSize: 30,left: '6%',color: "#ff0000",}]}>Part Located!</Text>
+              <Text style={ styles.partLocationText}>Width:{((Dimensions.get('window').width/400) * prediction.width).toFixed(0)}</Text>
+              <Text style={ styles.partLocationText}>Height:{(((Dimensions.get('window').height-130)/512)* prediction.height).toFixed(0)}</Text>
+              <Text style={ styles.partLocationText}>X:{(((prediction.y/512) * (Dimensions.get('window').height-130)) - (((Dimensions.get('window').height-130)/512)* prediction.height/2)).toFixed(0)}</Text>
+              <Text style={ styles.partLocationText}>Y:{(((prediction.x / 400) * Dimensions.get('window').width) -  ((Dimensions.get('window').width/400) * prediction.width/2)).toFixed(0)}</Text>
+          </View>]
         
-      ))}
-       
-      </View>
-    );
-  };
+      
+    ))}
+      
+    </View>
+  );
+};
 
 
 
@@ -370,7 +367,7 @@ const styles = StyleSheet.create({
     top: -20,
     width: 1000,
   }
- 
+
 });
 
 export default LocateScreen;
