@@ -30,7 +30,7 @@ describe('Tensor Helper Functions', () => {
 
   it('should handle errors when loading the TensorFlow model', async () => {
     // getModel function to throw an error
-    getModel = jest.fn().rejectedValue(new Error('Failed to load model'));
+    getModel = jest.fn().rejectedVal(new Error('Failed to load model'));
 
     try {
       await getModel();
@@ -38,6 +38,16 @@ describe('Tensor Helper Functions', () => {
       assert.strictEqual(error.message, 'Failed to load model', 'Error message should match');
     }
   });
+   
+  it('should handle errors when converting base64 to tensor', async () => {
+    // convertBase64ToTensor function to throw an error
+    convertBase64ToTensor = jest.fn().rejectedVal(new Error('Failed to convert base64 to tensor'));
 
+    try {
+      await convertBase64ToTensor(tensorBase64);
+    } catch (error) {
+      assert.strictEqual(error.message, 'Failed to convert base64 to tensor', 'Error message should match');
+    }
+  });
   
 });
