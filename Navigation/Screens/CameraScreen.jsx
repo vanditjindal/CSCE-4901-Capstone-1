@@ -84,16 +84,11 @@ function CameraScreen({navigation}){
 
   };
 
+
   // const speakDismiss = () => {
   //     const textToSay = 'Dismiss';
   //     Speech.speak(textToSay);
   //   };
-
-
-
-
-
-
 
   // A function that will check if the app has permissions to use the camera and media library, as well as initializing the model and tensor
   //ToDO: implement a media library feature
@@ -112,6 +107,11 @@ function CameraScreen({navigation}){
       })();
   }, []);
 
+  if (hasCameraPermission === undefined) {
+    return <Text>Requesting permissions...</Text>
+  } else if (!hasCameraPermission) {
+    return <Text>Permission for camera not granted. Please change this in settings.</Text>
+  }
 
   //An async function to handle image import, it will check for library permissions first and then will allow the user to select an image
   const handleImageImport = async () => {
@@ -132,20 +132,46 @@ function CameraScreen({navigation}){
   
       if (!result.canceled) {
         console.log(result.uri);
-        
-        // TODO: Process the selected image
-        await processImagePrediction(result.uri);
       }
-    } catch (error) {
-      console.error('Error selecting image:', error);
-    }
+      // TODO: Process the selected image
+      setLoading(true)
+      //prediction preperations
+      try{
+        const imageData2 = tf.image.resizeBilinear(tensorImage,[224,224])   
+        const fin = tf.expandDims(imageData2, 0);
+        const normalized = fin.cast('float32').div(127.5).sub(1);
+        //prediction
+        if (model){
+          const prediction = await startPrediction(model, normalized);
+          const highestPrediction = prediction.indexOf(
+            Math.max.apply(null, prediction),
+          );
+          
+          //finding lego based on ID and setting it to state of prediction model
+          for (var i = 0; i < legos.length; i++){
+            if (legos[i].PartID === RESULT_MAPPING[highestPrediction]){
+              setLegoPrediction([legos[i], Number(100*prediction[highestPrediction]).toFixed(1) ])
+            }
+          }
+          //activates prediction modal
+          setShowPrediction(true)
+        }
+          
+      }
+      
+      catch (e){
+        console.log(e)
+        
+        
+      }
+      setLoading(false)
+      
+      } catch (error) {
+        console.error('Error selecting image:', error);
+      }
   };
 
-  if (hasCameraPermission === undefined) {
-    return <Text>Requesting permissions...</Text>
-  } else if (!hasCameraPermission) {
-    return <Text>Permission for camera not granted. Please change this in settings.</Text>
-  }
+
 
 
   //live stream predictions, glitches in the beginning because model is still loading, needs to toggle button on and off to unglitch

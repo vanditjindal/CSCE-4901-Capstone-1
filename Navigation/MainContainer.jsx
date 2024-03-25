@@ -82,25 +82,25 @@ export default function MainContainer(){
               let rn = route.name;
                   
               {/*This will determine which screen is selected and apply the styles to the outlines and the text accordingly. */}
-      if (rn === homeName) {
-        outlined = focused ? '#ff0000' : '#808080';
-        return (
-          <View style={{ alignItems: 'center' }}>
-            <View
-              style={{
-                backgroundColor: themeMode === true ? '#1a1a1a' : '#FFFFFF',
-                borderRadius: 25,
-                width: 50,
-                height: 50,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Entypo name="home" size={38} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: 1, marginBottom: -8 }} />
-            </View>
-            <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Home</Text>
-          </View>
-        );
+              if (rn === homeName) {
+                outlined = focused ? '#ff0000' : '#808080';
+                return (
+                  <View style={{ alignItems: 'center' }}>
+                    <View
+                      style={{
+                        backgroundColor: themeMode === true ? '#1a1a1a' : '#FFFFFF',
+                        borderRadius: 25,
+                        width: 50,
+                        height: 50,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Entypo name="home" size={38} color={outlined} style={{ backgroundColor: 'transparent', marginLeft: 1, marginBottom: -8 }} />
+                    </View>
+                    <Text style={{ color: outlined, fontSize: 20, position: 'relative', left: 1, bottom: -3, textAlign: 'center' }}>Home</Text>
+                  </View>
+                );
                 
               } else if (rn === cameraName) {
                 outlined = focused ? '#ff0000' : '#808080';
