@@ -334,9 +334,18 @@ import * as Speech from 'expo-speech';
                 onPress={() => handleImageCapture()}
                 style={({ pressed }) => [
                   {
-                    backgroundColor: pressed
-                      ? 'grey'
-                      : 'white'
+                   opacity: pressed ? 0.5 : 1, // Dim the button when pressed
+                      borderWidth: 6,
+                      borderColor: '#ddd', // Add border to give more definition
+                      backgroundColor: 'white', // Background color of the button
+                      shadowColor: "#000", // Shadow for depth
+                      shadowOffset: {
+                        width: 0,
+                        height: 2,
+                      },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                      elevation: 5, // For Android
                   },
                   styles.captureButton
                 ]}>
