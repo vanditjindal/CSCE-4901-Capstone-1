@@ -8,10 +8,40 @@ import SettingsModal from '../../components/SettingsPop';
 // for theming page: react useContext and below
 import themeContext from '../../config/themeContext';
 import Feather from 'react-native-vector-icons/Feather'; // Icon from https://github.com/oblador/react-native-vector-icons
+import { MindstormWidget, BotanicalWidget, Pending1Widget, Pending2Widget } from '../../components/SetsWidgets';
+import { useNavigation } from '@react-navigation/native';
 
 
 function HomeScreen({route, navigation}){
-  // theme
+  // Define handleWidgetPress here
+  /*const handleWidgetPress = (set) => {
+    // You can perform different actions based on the set type
+    if (set === 'mindstorm') {
+      // Navigate to the Mindstorm screen
+      setActiveWidget('mindstorm');
+    } else if (set === 'botanical') {
+      // Navigate to the Botanical screen
+      setActiveWidget('botanical');
+    } else if (set === 'pending1') {
+      // Navigate to the pending1 screen
+      setActiveWidget('pending1');
+    } else if (set === 'pending2') {
+      // Navigate to the pending2 screen
+      setActiveWidget('pending2');
+    }
+  };*/
+
+  const [showMindstormList, setShowMindstormList] = useState(false);
+
+  const handleWidgetPress = (widgetName) => {
+    if (widgetName === 'mindstorm') {
+      setShowMindstormList(prevShowMindstormList => !prevShowMindstormList);
+    } else if (widgetName === 'botanical'){
+      setShowMindstormList(true);
+    }
+    
+  };
+    // theme
   const theme = useContext(themeContext);
 
  //array to hold json lego db
@@ -42,48 +72,115 @@ function HomeScreen({route, navigation}){
     return partName+partID+color;
   });
 
- return(
-    <View style={{backgroundColor: theme.background}}>
-    
-    
-    {/* <Text style={{fontSize:20,position:'absolute',left:-5,bottom:-3,textAlign:'center'}}>Menu</Text> */}
-    
-    <InformationModal></InformationModal>
-    <SettingsModal></SettingsModal>
-     
-      <ScrollView style={{position:'relative', marginBottom:90, backgroundColor: theme.background}}>
 
-      <Text style={{...styles.text, left:20, marginBottom: 13, fontWeight:'bold', fontSize:25, color: theme.color}}>BrixColor Finder</Text>
-      <Text style={{...styles.text, marginBottom: -5, color: theme.color}}>Please select the piece you would like to identify</Text>
-      <SearchBar onChangeText={updateSearch} value={searchTerm} placeholder="Search" platform="ios" containerStyle={{position:'relative',margin:16, marginBottom: 10, backgroundColor: theme.background}}/>
-      <Divider style={{marginTop: 10,marginLeft:20,marginRight:20,}}/>
-      {/* iterate over the json file and print one by one */}
-      
-      {results.map(item => (
-          <ListItem key = {item.PartID} onPress={() => navigation.navigate('Lego',{ item:item})} containerStyle={{backgroundColor: theme.theme == "dark" ? "#000000" : theme.background}} bottomDivider>
-          
-          <View style={styles.partContainer}>            
-          <Image
-            style={[styles.image, { width: 70, height: 70, borderRadius: 5 }]} 
-            source={{ uri: item.ImageURL }}
-          /> 
-        </View>
+    const [activeWidget, setActiveWidget] = useState(null);
+   
 
-
-          <ListItem.Content>
-            <ListItem.Title style={{color: theme.color}}>{item.PartName}</ListItem.Title>
-            <ListItem.Subtitle style={{color: theme.color}}>{'Category: ' + item.Category}</ListItem.Subtitle>
-          </ListItem.Content>
+    return (
+      <View style={{backgroundColor: theme.background}}>
+      {/* <Text style={{fontSize:20,position:'absolute',left:-5,bottom:-3,textAlign:'center'}}>Menu</Text> */}
+      <InformationModal></InformationModal>
+      <SettingsModal></SettingsModal>
+        <Text style={{...styles.text, left:20, marginBottom: 13, fontWeight:'bold', fontSize:30, color: theme.color}}>BrixColor Finder</Text>
+        <Text style={{...styles.text, marginBottom: -5, color: theme.color}}>Please select the piece you would like to identify</Text>
+        <SearchBar onChangeText={updateSearch} value={searchTerm} placeholder="Search" platform="ios" containerStyle={{position:'relative',margin:16, marginBottom: 10, backgroundColor: theme.background}}/>
+        <Divider style={{marginTop: 10,marginLeft:20,marginRight:20,}}/>
+        
+        <ScrollView style={{position:'relative', marginBottom:275, backgroundColor: theme.background}}>
+        <MindstormWidget onPress={() => handleWidgetPress('mindstorm')} />
+        
+        {showMindstormList && results.map(item => (
+          <ListItem 
+            key={item.PartID} 
+            onPress={() => navigation.navigate('Lego', { item })}
+            containerStyle={{backgroundColor: theme.theme == "dark" ? "#000000" : theme.background}} 
+            bottomDivider
+          >
+            <View style={styles.partContainer}>            
+              <Image
+                style={[styles.image, { width: 70, height: 70, borderRadius: 5 }]} 
+                source={{ uri: item.ImageURL }}
+              /> 
+            </View>   
+            <ListItem.Content>
+              <ListItem.Title style={{color: theme.color}}>{item.PartName}</ListItem.Title>
+              <ListItem.Subtitle style={{color: theme.color}}>{'Category: ' + item.Category}</ListItem.Subtitle>
+            </ListItem.Content>
           </ListItem>
-      ))}
-
-      </ScrollView>
-      <StatusBar style="auto" />
-      </View>
+          
+        ))}
+       
+        
+        <StatusBar style="auto" />
+          </ScrollView>
+          </View>
+          
+          
     );
-}
+    
+
+    return(
+      <View style={{backgroundColor: theme.background}}>
+      
+      
+      {/* <Text style={{fontSize:20,position:'absolute',left:-5,bottom:-3,textAlign:'center'}}>Menu</Text> */}
+      
+      <InformationModal></InformationModal>
+      <SettingsModal></SettingsModal>
+        <Text style={{...styles.text, left:20, marginBottom: 13, fontWeight:'bold', fontSize:30, color: theme.color}}>BrixColor Finder</Text>
+        <Text style={{...styles.text, marginBottom: -5, color: theme.color}}>Please select the piece you would like to identify</Text>
+        <SearchBar onChangeText={updateSearch} value={searchTerm} placeholder="Search" platform="ios" containerStyle={{position:'relative',margin:16, marginBottom: 10, backgroundColor: theme.background}}/>
+        <Divider style={{marginTop: 10,marginLeft:20,marginRight:20,}}/>
+        {/* iterate over the json file and print one by one */}
+        
+          <View style={styles.row}>
+          <MindstormWidget onPress={() => handleWidgetPress('mindstorm')} />
+          
+
+          <BotanicalWidget onPress={() => handleWidgetPress('botanical')} />
+        </View>
+        <View style={styles.row}>
+          <Pending1Widget onPress={() => handleWidgetPress('pending1')} />
+          <Pending2Widget onPress={() => handleWidgetPress('pending2')} />
+
+
+        </View>
+            
+        {results.map(item => (
+            <ListItem key = {item.PartID} onPress={() => navigation.navigate('Lego',{ item:item})} containerStyle={{backgroundColor: theme.theme == "dark" ? "#000000" : theme.background}} bottomDivider>
+                  
+  
+            <View style={styles.partContainer}>            
+            <Image
+              style={[styles.image, { width: 70, height: 70, borderRadius: 5 }]} 
+              source={{ uri: item.ImageURL }}
+            /> 
+            </View>      
+  
+            <ListItem.Content>
+              <ListItem.Title style={{color: theme.color}}>{item.PartName}</ListItem.Title>
+              <ListItem.Subtitle style={{color: theme.color}}>{'Category: ' + item.Category}</ListItem.Subtitle>
+            </ListItem.Content>
+            </ListItem>
+        ))}
+        
+       
+        <StatusBar style="auto" />
+        </View>
+      );
+        };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 15, // Adjust padding as needed
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // This will place one widget at the start and one at the end of the row
+    alignItems: 'center',
+    marginBottom: 10, // Adjust the space between the rows as needed
+  },
   text:{
     position:'relative',
     left:20, 

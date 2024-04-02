@@ -9,7 +9,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import { EventRegister } from 'react-native-event-listeners';
 import themeContext from '../config/themeContext';
 import theme from '../config/theme';
-
+import { createStackNavigator } from '@react-navigation/stack';
 import ttsContext from "../config/ttsContext";
 import tts from '../config/tts';
 
@@ -54,9 +54,7 @@ export default function MainContainer(){
       };
     });
 
-  
-
-    return(
+      return(
 
         <ttsContext.Provider value = {ttsMode === true ? tts.true : tts.false}>
         <themeContext.Provider value = {themeMode === true ? theme.dark : theme.light}>
@@ -159,7 +157,7 @@ export default function MainContainer(){
           <Tab.Screen options={{headerShown: false}} name={settingsName} component={SettingsScreen} />
           <Tab.Screen options={{ headerShown: false}} name={legoPartsName} component={LegoPartScreen} />
 
-        </Tab.Navigator>
+        </Tab.Navigator>       
       </NavigationContainer>
       </themeContext.Provider>
       </ttsContext.Provider>
