@@ -37,8 +37,8 @@ describe('Tensor Helper Functions', () => {
     // Test edge cases like empty tensor, null model, etc.
     const emptyTensor = tf.tensor([]);
     const nullModel = null;
-    const predictions1 = await startPrediction(mockModel, emptyTensor);
-    const predictions2 = await startPrediction(nullModel, mockTensor);
+    const predictions1 = await startPrediction(tensorModel, emptyTensor);
+    const predictions2 = await startPrediction(nullModel, tensorVal);
     assert.deepStrictEqual(predictions1, [], 'Predictions should be empty for empty tensor');
     assert.strictEqual(predictions2, null, 'Predictions should be null for null model');
   });
